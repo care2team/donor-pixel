@@ -9,6 +9,8 @@
 
 var sha256 = require('js-sha256').sha256;
 
+const salt = 'JnXfotSYCdjoYQNtLMp';
+
 
 (function () {
 
@@ -22,7 +24,7 @@ var sha256 = require('js-sha256').sha256;
 
         var url = 'https://www.care2.com/tr'
             + '?clientid=' + clientid
-            + '&emailhash=' + sha256(email)
+            + '&emailhash=' + sha256(salt + email)
             + '&value=' + value;
 
 
@@ -43,6 +45,8 @@ var sha256 = require('js-sha256').sha256;
 
 })();
 
+
+module.exports = salt;
 
 
 /*

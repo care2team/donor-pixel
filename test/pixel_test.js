@@ -22,7 +22,7 @@ describe('default assert', () => {
 
 
         // pull in the library
-        require('../src/pixel');
+        const salt = require('../src/pixel');
 
 
         // set the data we're going to use
@@ -40,7 +40,7 @@ describe('default assert', () => {
 
         let url = 'https://www.care2.com/tr'
             + '?clientid=' + clientid
-            + '&emailhash=' + sha256(email)
+            + '&emailhash=' + sha256(salt + email)
             + '&value=' + value;
 
         $('img').each((index, element) => {
