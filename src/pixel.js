@@ -22,9 +22,11 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
 
         let { clientid, email, value } = gatherArguments(args);
 
+        let emailhash = email.match(/^[A-Fa-f0-9]{64}$/) ? email : sha256(salt + email);
+
         let url = 'https://www.care2.com/tr'
             + '?clientid=' + clientid
-            + '&emailhash=' + sha256(salt + email)
+            + '&emailhash=' + emailhash
             + '&value=' + value;
 
         let img = document.createElement('img');
@@ -62,7 +64,7 @@ function checkForErrors(args) {
     // to prevent errors in the case where there is no console
     if (typeof console !== 'object') {
         const console = {
-            log: function () {
+            error: function () {
             }
         };
     }
@@ -74,7 +76,7 @@ function checkForErrors(args) {
 
     // make sure there are at least 3 arguments
     if (args.length < 3) {
-        console.log(prefix + 'There must be at least 3 arguments in the tracker call.');
+        console.error(prefix + 'There must be at least 3 arguments in the tracker call.');
     }
 
 
@@ -82,7 +84,7 @@ function checkForErrors(args) {
     let emailValidation = /^[A-Z0-9._%+-]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 
     if (typeof email !== 'string' || !email.match(emailValidation)) {
-        console.log(prefix + 'The email address passed in does not appear to be a valid email.');
+        console.error(prefix + 'The email address passed in does not appear to be a valid email.');
     }
 
 }
