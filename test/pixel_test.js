@@ -13,7 +13,7 @@ describe('default assert', () => {
 
         // set the data we're going to use
         let clientid = 'CLIENT_ID';
-        let email = 'martin@care2team.com';
+        let email = 'test@care2team.com';
         let value = '3.00';
 
 
@@ -48,7 +48,7 @@ describe('default assert', () => {
 
         // set the data we're going to use
         let clientid = 'CLIENT_ID';
-        let email = 'martin@care2team.com';
+        let email = 'test@care2team.com';
         let value = '3.00';
 
 
@@ -79,10 +79,55 @@ describe('default assert', () => {
 
     });
 
+
+    it ('make sure calls work asyncronously', () => {
+
+
+        // set the data we're going to use
+        let clientid = 'CLIENT_ID';
+        let email = 'test@care2team.com';
+        let value1 = '3.00';
+        let value2 = '3.00';
+
+
+        // put in a function that will be called before the code loads
+        let { m, salt } = emulateEmbedCode(() => {
+            care2TrackDonation(clientid, email, value1);
+        });
+
+        care2TrackDonation(clientid, email, value2);
+
+
+        // make sure there is a pixel with the URL we are expecting
+        let result1 = false;
+        let result2 = false;
+
+        let url1 = buildURL(clientid, getHashValue(email, salt), value1);
+        let url2 = buildURL(clientid, getHashValue(email, salt), value2);
+
+        let imgTags = document.getElementsByTagName('IMG');
+
+        for (let i = 0; i < imgTags.length; i++) {
+            if (imgTags[i].src === url1) {
+                result1 = true;
+            }
+
+            if (imgTags[i].src === url2) {
+                result2 = true;
+            }
+        }
+
+
+        // test to make sure everything is as expected
+        assert.equal(true, result1);
+        assert.equal(true, result2);
+
+    });
+
 });
 
 
-function emulateEmbedCode() {
+function emulateEmbedCode(queueFunction) {
     // emulate the embed code
     let m = window.care2TrackDonation = function () {
         m.callMethod ? m.callMethod.apply(m, [arguments]) : m.queue.push(arguments)
@@ -91,6 +136,12 @@ function emulateEmbedCode() {
     m.push = m;
     m.version = '1.0';
     m.queue = [];
+
+
+    // if we passed in a function, call it before the script loads
+    if (typeof queueFunction === 'function') {
+        queueFunction();
+    }
 
 
     // pull in the library

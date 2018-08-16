@@ -18,9 +18,9 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
 
     const callMethod = c2td.callMethod = function (args) {
 
-        checkForErrors(args);
-
         let { clientid, email, value } = gatherArguments(args);
+
+        checkForErrors(clientid, email, value);
 
         let emailhash = email.match(/^[A-Fa-f0-9]{64}$/) ? email : sha256(salt + email);
 
@@ -56,10 +56,7 @@ module.exports = salt;
  *
  * @param {array} args
  */
-function checkForErrors(args) {
-
-    let { clientid, email, value } = gatherArguments(args);
-
+function checkForErrors(clientid, email, value) {
 
     // to prevent errors in the case where there is no console
     if (typeof console !== 'object') {
@@ -75,8 +72,8 @@ function checkForErrors(args) {
 
 
     // make sure there are at least 3 arguments
-    if (args.length < 3) {
-        console.error(prefix + 'There must be at least 3 arguments in the tracker call.');
+    if (typeof clientid !== 'string' || typeof email !== 'string' || typeof value !== 'string') {
+        console.error(prefix + 'There must be at least 3 string arguments in the tracker call.');
     }
 
 
@@ -103,26 +100,3 @@ function gatherArguments(args) {
     return { clientid, email, value };
 }
 
-
-/*
-
-EMBED CODE EXAMPLE:
-
-
-<script>!function (w, d, e, u, m, t, s) {
-        if (w.care2TrackDonation) return;
-        m = w.care2TrackDonation = function () {
-            m.callMethod ? m.callMethod.apply(m, [arguments]) : m.queue.push(arguments)
-        };
-        m.push = m;
-        m.version = '1.0';
-        m.queue = [];
-        t = d.createElement(e);
-        t.async = !0;
-        t.src = u;
-        s = d.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-    }(window, document, 'script', 'donor-pixel.js');
-</script>
-
- */
