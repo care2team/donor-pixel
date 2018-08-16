@@ -24,10 +24,7 @@ describe('default assert', () => {
         // make sure there is a pixel with the URL we are expecting
         let result = false;
 
-        let url = 'https://www.care2.com/tr'
-            + '?clientid=' + clientid
-            + '&emailhash=' + getHashValue(email, salt)
-            + '&value=' + value;
+        let url = buildURL(clientid, getHashValue(email, salt), value);
 
         let imgTags = document.getElementsByTagName('IMG');
 
@@ -66,10 +63,7 @@ describe('default assert', () => {
         // make sure there is a pixel with the URL we are expecting
         let result = false;
 
-        let url = 'https://www.care2.com/tr'
-            + '?clientid=' + clientid
-            + '&emailhash=' + email
-            + '&value=' + value;
+        let url = buildURL(clientid, email, value);
 
         let imgTags = document.getElementsByTagName('IMG');
 
@@ -111,5 +105,15 @@ function emulateEmbedCode() {
 function getHashValue(value, salt) {
 
     return sha256(salt + value);
+
+}
+
+
+function buildURL(clientid, email, value) {
+
+    return 'https://www.care2.com/tr'
+        + '?clientid=' + clientid
+        + '&emailhash=' + email
+        + '&value=' + value;
 
 }
