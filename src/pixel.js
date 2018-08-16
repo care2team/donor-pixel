@@ -7,28 +7,27 @@
  */
 
 
-var sha256 = require('js-sha256').sha256;
-
+const sha256 = require('js-sha256').sha256;
 const salt = 'JnXfotSYCdjoYQNtLMp';
 
 
 (function () {
 
-    var c2td = care2TrackDonation;
-    var queue = care2TrackDonation.queue || [];
+    const c2td = care2TrackDonation;
+    let queue = care2TrackDonation.queue || [];
 
-    var callMethod = c2td.callMethod = function (args) {
-        var clientid = args[0];
-        var email = args[1];
-        var value = args[2];
+    const callMethod = c2td.callMethod = function (args) {
 
-        var url = 'https://www.care2.com/tr'
+        checkForErrors(args);
+
+        let { clientid, email, value } = gatherArguments(args);
+
+        let url = 'https://www.care2.com/tr'
             + '?clientid=' + clientid
             + '&emailhash=' + sha256(salt + email)
             + '&value=' + value;
 
-
-        var img = document.createElement('img');
+        let img = document.createElement('img');
         img.height = '1';
         img.width = '1';
         img.alt = '';
@@ -37,9 +36,10 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
 
 
         window.document.body.appendChild(img);
+
     };
 
-    for (var i = 0; i < queue.length; i++) {
+    for (let i = 0; i < queue.length; i++) {
         callMethod(queue[i]);
     }
 
@@ -47,6 +47,59 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
 
 
 module.exports = salt;
+
+
+/**
+ * if there are any errors, simply log them in the javascript console.
+ *
+ * @param {array} args
+ */
+function checkForErrors(args) {
+
+    let { clientid, email, value } = gatherArguments(args);
+
+
+    // to prevent errors in the case where there is no console
+    if (typeof console !== 'object') {
+        const console = {
+            log: function () {
+            }
+        };
+    }
+
+
+    // a prefix for the errors to find them easily
+    let prefix = 'Care2 Donation Tracker -- ERROR: ';
+
+
+    // make sure there are at least 3 arguments
+    if (args.length < 3) {
+        console.log(prefix + 'There must be at least 3 arguments in the tracker call.');
+    }
+
+
+    // check to see if the email passes regular expression
+    let emailValidation = /^[A-Z0-9._%+-]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+
+    if (typeof email !== 'string' || !email.match(emailValidation)) {
+        console.log(prefix + 'The email address passed in does not appear to be a valid email.');
+    }
+
+}
+
+
+/**
+ * assign the arguments to separate values
+ *
+ * @param {array} args
+ */
+function gatherArguments(args) {
+    let clientid = args[0];
+    let email = args[1];
+    let value = args[2];
+
+    return { clientid, email, value };
+}
 
 
 /*
