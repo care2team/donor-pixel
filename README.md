@@ -1,13 +1,13 @@
 # donor-pixel
 Donor Pixel Repo
 
-##### EMBED CODE EXAMPLE:
+##### IMPLEMENTATION EXAMPLE:
 
 ```html
 <script>!function (w, d, e, u, m, t, s) {
         if (w.care2TrackDonation) return;
-        m = w.care2TrackDonation = function () {
-            m.callMethod ? m.callMethod.apply(m, [arguments]) : m.queue.push(arguments)
+        m = w.care2TrackDonation = function (params) {
+            m.callMethod ? m.callMethod.apply(m, [params]) : m.queue.push(params)
         };
         m.push = m;
         m.version = '1.0';
@@ -18,5 +18,14 @@ Donor Pixel Repo
         s = d.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t, s);
     }(window, document, 'script', 'donor-pixel.js');
+    
+    
+    care2TrackDonation({
+        clientid: 'CLIENT_ID',
+        email: 'test@care2team.com',
+        value: '3.00',
+        currency: 'usd', // optional
+        repeating: false //optional
+    });
 </script>
 ```

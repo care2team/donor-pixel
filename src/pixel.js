@@ -18,7 +18,7 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
 
     const callMethod = c2td.callMethod = function (args) {
 
-        let { clientid, email, value } = gatherArguments(args);
+        let { clientid, email, value, currency, repeating } = args;
 
         checkForErrors(clientid, email, value);
 
@@ -28,6 +28,16 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
             + '?clientid=' + clientid
             + '&emailhash=' + emailhash
             + '&value=' + value;
+
+        if (typeof currency !== 'undefined') {
+            url += '&currency=' + currency;
+        }
+
+        if (typeof repeating !== 'undefined') {
+            repeating = repeating ? '1' : '0';
+            url += '&repeating=' + repeating;
+        }
+
 
         let img = document.createElement('img');
         img.height = '1';
@@ -40,6 +50,7 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
         window.document.body.appendChild(img);
 
     };
+
 
     for (let i = 0; i < queue.length; i++) {
         callMethod(queue[i]);
@@ -81,22 +92,7 @@ function checkForErrors(clientid, email, value) {
     let emailValidation = /^[A-Z0-9._%+-]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 
     if (typeof email !== 'string' || !email.match(emailValidation)) {
-        console.error(prefix + 'The email address passed in does not appear to be a valid email.');
+        console.error(prefix + 'The email address passed [' + email + '] in does not appear to be a valid email.');
     }
 
 }
-
-
-/**
- * assign the arguments to separate values
- *
- * @param {array} args
- */
-function gatherArguments(args) {
-    let clientid = args[0];
-    let email = args[1];
-    let value = args[2];
-
-    return { clientid, email, value };
-}
-

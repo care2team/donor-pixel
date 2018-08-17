@@ -4,133 +4,133 @@ let assert = require('chai').assert;
 let sha256 = require('js-sha256').sha256;
 
 
-describe('default assert', () => {
+it('make sure calls work asyncronously', () => {
 
-    it('URL building works', () => {
-
-        let { m, salt } = emulateEmbedCode();
-
-
-        // set the data we're going to use
-        let clientid = 'CLIENT_ID';
-        let email = 'test@care2team.com';
-        let value = '3.00';
+    // set the data we're going to use
+    let clientid = 'CALL_ASYNCRONOUSLY';
+    let email = 'test@care2team.com';
+    let value1 = '3.00';
+    let value2 = '6.00';
 
 
-        // make the track donation call
-        care2TrackDonation(clientid, email, value);
-
-
-        // make sure there is a pixel with the URL we are expecting
-        let result = false;
-
-        let url = buildURL(clientid, getHashValue(email, salt), value);
-
-        let imgTags = document.getElementsByTagName('IMG');
-
-        for (let i = 0; i < imgTags.length; i++) {
-            if (imgTags[i].src === url) {
-                result = true;
-            }
-        }
-
-
-        // test to make sure everything is as expected
-        assert.equal(true, result);
-
+    // put in a function that will be called before the code loads
+    let { m, salt } = emulateEmbedCode(() => {
+        care2TrackDonation({ clientid, email, value: value1 });
     });
 
-
-    it ('make sure we don\'t rehash hashed emails', () => {
-
-        let { m, salt } = emulateEmbedCode();
+    care2TrackDonation({ clientid, email, value: value2 });
 
 
-        // set the data we're going to use
-        let clientid = 'CLIENT_ID';
-        let email = 'test@care2team.com';
-        let value = '3.00';
+    // make sure there is a pixel with the URL we are expecting
+    let result1 = false;
+    let result2 = false;
 
+    let url1 = buildURL(clientid, getHashValue(email, salt), value1);
+    let url2 = buildURL(clientid, getHashValue(email, salt), value2);
 
-        // pre-hash the email address
-        email = getHashValue(email, salt);
+    let imgTags = document.getElementsByTagName('IMG');
 
-
-        // make the track donation call
-        care2TrackDonation(clientid, email, value);
-
-
-        // make sure there is a pixel with the URL we are expecting
-        let result = false;
-
-        let url = buildURL(clientid, email, value);
-
-        let imgTags = document.getElementsByTagName('IMG');
-
-        for (let i = 0; i < imgTags.length; i++) {
-            if (imgTags[i].src === url) {
-                result = true;
-            }
+    for (let i = 0; i < imgTags.length; i++) {
+        if (imgTags[i].src === url1) {
+            result1 = true;
         }
 
-
-        // test to make sure everything is as expected
-        assert.equal(true, result);
-
-    });
-
-
-    it ('make sure calls work asyncronously', () => {
-
-
-        // set the data we're going to use
-        let clientid = 'CLIENT_ID';
-        let email = 'test@care2team.com';
-        let value1 = '3.00';
-        let value2 = '3.00';
-
-
-        // put in a function that will be called before the code loads
-        let { m, salt } = emulateEmbedCode(() => {
-            care2TrackDonation(clientid, email, value1);
-        });
-
-        care2TrackDonation(clientid, email, value2);
-
-
-        // make sure there is a pixel with the URL we are expecting
-        let result1 = false;
-        let result2 = false;
-
-        let url1 = buildURL(clientid, getHashValue(email, salt), value1);
-        let url2 = buildURL(clientid, getHashValue(email, salt), value2);
-
-        let imgTags = document.getElementsByTagName('IMG');
-
-        for (let i = 0; i < imgTags.length; i++) {
-            if (imgTags[i].src === url1) {
-                result1 = true;
-            }
-
-            if (imgTags[i].src === url2) {
-                result2 = true;
-            }
+        if (imgTags[i].src === url2) {
+            result2 = true;
         }
+    }
 
 
-        // test to make sure everything is as expected
-        assert.equal(true, result1);
-        assert.equal(true, result2);
+    // test to make sure everything is as expected
+    assert.equal(true, result1, 'make sure call work asyncronously when called before code library loads');
+    assert.equal(true, result2, 'make sure call work asyncronously when called after code library loads');
 
-    });
+});
+
+
+it('URL building works', () => {
+
+    let { m, salt } = emulateEmbedCode();
+
+
+    // set the data we're going to use
+    let clientid = 'BUILD_URL';
+    let email = 'test@care2team.com';
+    let value = '3.00';
+
+
+    // make the track donation call
+    care2TrackDonation({ clientid, email, value });
+
+
+    // make sure there is a pixel with the URL we are expecting
+    let result = false;
+
+    let url = buildURL(clientid, getHashValue(email, salt), value);
+
+    let imgTags = document.getElementsByTagName('IMG');
+
+    for (let i = 0; i < imgTags.length; i++) {
+        if (imgTags[i].src === url) {
+            result = true;
+        }
+    }
+
+
+    // test to make sure everything is as expected
+    assert.equal(true, result, 'URL building works');
+
+});
+
+
+it('make sure we don\'t rehash hashed emails', () => {
+
+    let { m, salt } = emulateEmbedCode();
+
+
+    // set the data we're going to use
+    let clientid = 'DONT_REHASH_EMAILS';
+    let email = 'test@care2team.com';
+    let value = '3.00';
+
+
+    // pre-hash the email address
+    email = getHashValue(email, salt);
+
+
+    // make the track donation call
+    care2TrackDonation({ clientid, email, value });
+
+
+    // make sure there is a pixel with the URL we are expecting
+    let result = false;
+
+    let url = buildURL(clientid, email, value);
+
+    let imgTags = document.getElementsByTagName('IMG');
+
+    for (let i = 0; i < imgTags.length; i++) {
+        if (imgTags[i].src === url) {
+            result = true;
+        }
+    }
+
+
+    // test to make sure everything is as expected
+    assert.equal(true, result, 'make sure we don\'t rehash hashed emails');
 
 });
 
 
 function emulateEmbedCode(queueFunction) {
+
+    if (window.care2TrackDonation) {
+        return { m: window.care2TrackDonation, salt: require('../src/pixel') };
+    }
+
     // emulate the embed code
-    let m = window.care2TrackDonation = function () {
-        m.callMethod ? m.callMethod.apply(m, [arguments]) : m.queue.push(arguments)
+    let m = window.care2TrackDonation = function (params) {
+        m.callMethod ? m.callMethod.apply(m, [params]) : m.queue.push(params)
     };
 
     m.push = m;
@@ -150,6 +150,7 @@ function emulateEmbedCode(queueFunction) {
 
     // return the values
     return { m, salt };
+
 }
 
 
@@ -160,11 +161,23 @@ function getHashValue(value, salt) {
 }
 
 
-function buildURL(clientid, email, value) {
+function buildURL(clientid, email, value, currency, repeating) {
 
-    return 'https://www.care2.com/tr'
+    let url = 'https://www.care2.com/tr'
         + '?clientid=' + clientid
         + '&emailhash=' + email
         + '&value=' + value;
+
+    if (typeof currency !== 'undefined') {
+        url += '&currency=' + currency;
+    }
+
+    if (typeof repeating !== 'undefined') {
+        repeating = repeating ? '1' : '0';
+        url += '&repeating=' + repeating;
+    }
+
+
+    return url;
 
 }
