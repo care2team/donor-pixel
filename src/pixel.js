@@ -82,9 +82,13 @@ function checkForErrors(clientid, email, value) {
     let prefix = 'Care2 Donation Tracker -- ERROR: ';
 
 
-    // make sure there are at least 3 arguments
-    if (typeof clientid !== 'string' || typeof email !== 'string' || typeof value !== 'string') {
-        console.error(prefix + 'There must be at least 3 string arguments in the tracker call.');
+    // make sure the cliendid is a valid integer
+    if (typeof clientid === 'string') {
+        clientid = parseInt(clientid);
+    }
+
+    if (clientid <= 0) {
+        console.error(prefix + 'Cliend ID must be an integer.');
     }
 
 
@@ -93,6 +97,16 @@ function checkForErrors(clientid, email, value) {
 
     if (typeof email !== 'string' || !email.match(emailValidation)) {
         console.error(prefix + 'The email address passed [' + email + '] in does not appear to be a valid email.');
+    }
+
+
+    // make sure the cliendid is a valid float
+    if (typeof value === 'string') {
+        value = parseFloat(value);
+    }
+
+    if (value <= 0) {
+        console.error(prefix + 'Value must be a float.');
     }
 
 }

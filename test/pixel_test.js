@@ -7,10 +7,10 @@ let sha256 = require('js-sha256').sha256;
 it('make sure calls work asyncronously', () => {
 
     // set the data we're going to use
-    let clientid = 'CALL_ASYNCRONOUSLY';
-    let email = 'test@care2team.com';
-    let value1 = '3.00';
-    let value2 = '6.00';
+    let clientid = 1234;
+    let email = 'test+call_async@care2team.com';
+    let value1 = 1.00;
+    let value2 = 2.00;
 
 
     // put in a function that will be called before the code loads
@@ -54,9 +54,9 @@ it('URL building works', () => {
 
 
     // set the data we're going to use
-    let clientid = 'BUILD_URL';
-    let email = 'test@care2team.com';
-    let value = '3.00';
+    let clientid = 5678;
+    let email = 'test+build_url@care2team.com';
+    let value = 3.00;
 
 
     // make the track donation call
@@ -89,9 +89,9 @@ it('make sure we don\'t rehash hashed emails', () => {
 
 
     // set the data we're going to use
-    let clientid = 'DONT_REHASH_EMAILS';
-    let email = 'test@care2team.com';
-    let value = '3.00';
+    let clientid = 9012;
+    let email = 'test+dont_rehash@care2team.com';
+    let value = 4.00;
 
 
     // pre-hash the email address
