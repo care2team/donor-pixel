@@ -29,11 +29,11 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
             + '&emailhash=' + emailhash
             + '&value=' + value;
 
-        if (typeof currency !== 'undefined') {
+        if (typeof currency === 'string') {
             url += '&currency=' + currency;
         }
 
-        if (typeof repeating !== 'undefined') {
+        if (typeof repeating === 'boolean') {
             repeating = repeating ? '1' : '0';
             url += '&repeating=' + repeating;
         }
