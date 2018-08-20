@@ -163,7 +163,7 @@ function getHashValue(value, salt) {
 
 function buildURL(clientid, email, value, currency, repeating) {
 
-    let url = 'https://www.care2.com/tr'
+    let url = 'https://www.care2.com/donation-pixel'
         + '?clientid=' + clientid
         + '&emailhash=' + email
         + '&value=' + value;
