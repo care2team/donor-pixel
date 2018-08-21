@@ -17,7 +17,7 @@ Donor Pixel Repo
         t.src = u;
         s = d.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t, s);
-    }(window, document, 'script', 'donor-pixel.js');
+    }(window, document, 'script', '//dingo.care2.com/donations/pixel.js');
     
     
     care2TrackDonation({
