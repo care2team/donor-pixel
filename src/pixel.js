@@ -22,7 +22,7 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
 
         checkForErrors(clientid, email, value);
 
-        let emailhash = email.match(/^[A-Fa-f0-9]{64}$/) ? email : sha256(salt + email);
+        let emailhash = email.match(/^[A-Fa-f0-9]{64}$/) ? email : sha256(salt + email.toLowerCase());
 
         let url = 'https://www.care2.com/donation-pixel'
             + '?clientid=' + clientid
