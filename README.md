@@ -24,7 +24,7 @@ Donor Pixel Repo
         clientid: 'CLIENT_ID',
         email: 'test@care2team.com',
         value: '3.00',
-        repeating: false //optional
+        repeating: false
     });
 </script>
 ```
