@@ -43,7 +43,7 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
         img.height = '1';
         img.width = '1';
         img.alt = '';
-        img.style = 'display:none';
+        img.setAttribute('style', 'display:none');
         img.src = url;
 
 
