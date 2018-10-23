@@ -1,5 +1,5 @@
 /**
- * DONOR PIXEL
+ * TRACKING PIXEL
  *
  * @author Martin Boynton
  *
@@ -13,8 +13,8 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
 
 (function () {
 
-    const c2td = care2TrackDonation;
-    let queue = care2TrackDonation.queue || [];
+    const c2td = care2Tracking || care2TrackDonation;
+    let queue = c2td.queue || [];
 
     const callMethod = c2td.callMethod = function (args) {
 
@@ -79,7 +79,7 @@ function checkForErrors(clientid, email, value) {
 
 
     // a prefix for the errors to find them easily
-    let prefix = 'Care2 Donation Tracker -- ERROR: ';
+    let prefix = 'Care2 Pixel Tracker -- ERROR: ';
 
 
     // make sure the cliendid is a valid integer

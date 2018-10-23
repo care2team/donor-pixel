@@ -1,12 +1,12 @@
-# donor-pixel
-Donor Pixel Repo
+# tracking-pixel
+Tracking Pixel Repo
 
 ##### JAVASCRIPT IMPLEMENTATION EXAMPLE:
 
 ```html
 <script>!function (w, d, e, u, m, t, s) {
-        if (w.care2TrackDonation) return;
-        m = w.care2TrackDonation = function (params) {
+        if (w.care2Tracking) return;
+        m = w.care2Tracking = function (params) {
             m.callMethod ? m.callMethod.apply(m, [params]) : m.queue.push(params)
         };
         m.push = m;
@@ -17,10 +17,10 @@ Donor Pixel Repo
         t.src = u;
         s = d.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t, s);
-    }(window, document, 'script', '//dingo.care2.com/donations/pixel.js');
+    }(window, document, 'script', '//dingo.care2.com/tracking/pixel.js');
 
 
-    care2TrackDonation({
+    care2Tracking({
         clientid: 'CLIENT_ID',
         email: 'test@care2team.com',
         value: '3.00',
@@ -33,14 +33,14 @@ Donor Pixel Repo
 <details><summary>HTML IMPLEMENTATION EXAMPLE</summary>
 <p>
 
-Query parameters passed to the donation pixel:
+Query parameters passed to the Tracking pixel:
 
 | Parameter | Description | Example |
 | :--- | :--- | :--- |
 | clientID | Your client ID | 1234 |
 | emailhash | The SHA256 hash of the user's lower-cased email, salted with JnXfotSYCdjoYQNtLMp | See hash in the url below |
-| value | The amount of the donation | 3.12 |
-| currency | The ISO 4217 currency code of the donation | USD |
+| value | The amount | 3.12 |
+| currency | The ISO 4217 currency code  | USD |
 | repeating | This value should 1 for true, 0 for false | 1 |
 
 ```html
@@ -56,15 +56,15 @@ Query parameters passed to the donation pixel:
 ```php
 <?php
 
-Care2TrackDonation(
+care2Tracking(
     '1234', // Client ID
     'test-1@gmail.com', // E-mail address
-    '3.12', // Donation value
-    'USD',  // Donation currency
+    '3.12', // Tracking value
+    'USD',  // Tracking currency
     false   // Repeating
 );
 
-function Care2TrackDonation($clientId, $email, $value, $currency, $repeating)
+function care2Tracking($clientId, $email, $value, $currency, $repeating)
 {
     $salt = 'JnXfotSYCdjoYQNtLMp';
 
@@ -81,7 +81,7 @@ function Care2TrackDonation($clientId, $email, $value, $currency, $repeating)
         throw new Exception("Client ID must be an valid integer.");
     }
 
-    // Validate donation value
+    // Validate tracking value
     $value = (float) $value;
     if ($value <= 0) {
         throw new Exception("Value must be an valid float.");
