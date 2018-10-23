@@ -31,7 +31,7 @@ Donor Pixel Repo
 ```
 </p>
 </details>
-
+<br />
 <details><summary>HTML IMPLEMENTATION EXAMPLE</summary>
 <p>
 
@@ -51,7 +51,7 @@ Query parameters passed to the donation pixel:
 
 </p>
 </details>
-
+<br />
 <details><summary>PHP IMPLEMENTATION EXAMPLE</summary>
 <p>
 
