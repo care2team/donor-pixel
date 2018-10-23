@@ -1,8 +1,7 @@
 # donor-pixel
 Donor Pixel Repo
 
-<details><summary>JAVASCRIPT IMPLEMENTATION EXAMPLE</summary>
-<p>
+##### JAVASCRIPT IMPLEMENTATION EXAMPLE:
 
 ```html
 <script>!function (w, d, e, u, m, t, s) {
@@ -29,8 +28,7 @@ Donor Pixel Repo
     });
 </script>
 ```
-</p>
-</details>
+
 <br />
 <details><summary>HTML IMPLEMENTATION EXAMPLE</summary>
 <p>
