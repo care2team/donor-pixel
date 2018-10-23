@@ -44,7 +44,7 @@ Query parameters passed to the donation pixel:
 | repeating | This value should 1 for true, 0 for false | 1 |
 
 ```html
-<img height="1" width="1" alt="" style="display:none" src="https://www.care2.com/donation-pixel?clientid=1234&emailhash=ca32ff688495d108c175948a8b641b62ddf166bbfd4fb404299758a3e94f59dd&value=3&currency=USD&repeating=0">
+<img height="1" width="1" alt="" style="display:none" src="https://www.care2.com/tracking-pixel?clientid=1234&emailhash=ca32ff688495d108c175948a8b641b62ddf166bbfd4fb404299758a3e94f59dd&value=3&currency=USD&repeating=0">
 ```
 
 </p>
@@ -95,7 +95,7 @@ function Care2TrackDonation($clientId, $email, $value, $currency, $repeating)
         'repeating' => $repeating === true ? 1 : 0
     ];
 
-    $trackingUrl = 'https://www.care2.com/donation-pixel?' . http_build_query($queryParams);
+    $trackingUrl = 'https://www.care2.com/tracking-pixel?' . http_build_query($queryParams);
 
     file_get_contents($trackingUrl);
 }
