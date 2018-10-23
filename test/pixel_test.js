@@ -15,10 +15,10 @@ it('make sure calls work asyncronously', () => {
 
     // put in a function that will be called before the code loads
     let { m, salt } = emulateEmbedCode(() => {
-        care2TrackDonation({ clientid, email, value: value1 });
+        care2Tracking({ clientid, email, value: value1 });
     });
 
-    care2TrackDonation({ clientid, email, value: value2 });
+    care2Tracking({ clientid, email, value: value2 });
 
 
     // make sure there is a pixel with the URL we are expecting
@@ -59,8 +59,8 @@ it('URL building works', () => {
     let value = 3.00;
 
 
-    // make the track donation call
-    care2TrackDonation({ clientid, email, value });
+    // make the track tracking call
+    care2Tracking({ clientid, email, value });
 
 
     // make sure there is a pixel with the URL we are expecting
@@ -98,8 +98,8 @@ it('make sure we don\'t rehash hashed emails', () => {
     email = getHashValue(email, salt);
 
 
-    // make the track donation call
-    care2TrackDonation({ clientid, email, value });
+    // make the track tracking call
+    care2Tracking({ clientid, email, value });
 
 
     // make sure there is a pixel with the URL we are expecting
@@ -124,12 +124,12 @@ it('make sure we don\'t rehash hashed emails', () => {
 
 function emulateEmbedCode(queueFunction) {
 
-    if (window.care2TrackDonation) {
-        return { m: window.care2TrackDonation, salt: require('../src/pixel') };
+    if (window.care2Tracking) {
+        return { m: window.care2Tracking, salt: require('../src/pixel') };
     }
 
     // emulate the embed code
-    let m = window.care2TrackDonation = function (params) {
+    let m = window.care2Tracking = function (params) {
         m.callMethod ? m.callMethod.apply(m, [params]) : m.queue.push(params)
     };
 
