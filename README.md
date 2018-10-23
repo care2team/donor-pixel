@@ -1,7 +1,8 @@
 # donor-pixel
 Donor Pixel Repo
 
-##### JAVASCRIPT IMPLEMENTATION EXAMPLE:
+<details><summary>JAVASCRIPT IMPLEMENTATION EXAMPLE</summary>
+<p>
 
 ```html
 <script>!function (w, d, e, u, m, t, s) {
@@ -28,29 +29,44 @@ Donor Pixel Repo
     });
 </script>
 ```
+</p>
+</details>
 
-##### PHP IMPLEMENTATION EXAMPLE:
+<details><summary>HTML IMPLEMENTATION EXAMPLE</summary>
+<p>
+
+Query parameters passed to the donation pixel:
+
+| Parameter | Description | Example |
+| :--- | :--- | :--- |
+| clientID | Your client ID | 1234 |
+| emailhash | The SHA256 hash of the user's lower-cased email, salted with JnXfotSYCdjoYQNtLMp | See hash in the url below |
+| value | The amount of the donation | 3.12 |
+| currency | The ISO 4217 currency code of the donation | USD |
+| repeating | This value should 1 for true, 0 for false | 1 |
+
+```html
+<img height="1" width="1" alt="" style="display:none" src="https://www.care2.com/donation-pixel?clientid=1234&emailhash=ca32ff688495d108c175948a8b641b62ddf166bbfd4fb404299758a3e94f59dd&value=3&currency=USD&repeating=0">
+```
+
+</p>
+</details>
+
+<details><summary>PHP IMPLEMENTATION EXAMPLE</summary>
+<p>
 
 ```php
 <?php
 
-/*
- * The function Care2TrackDonation() will take all of the donation data as arguments, validate them, and then build
- * the url to use to make the Care2 tracking pixel call. The last argument to the function ($returnTrackingUrl)
- * determines whether the function should make the pixel call to Care2, or if it should just return the pixel URL.
- * Just returning the pixel URL can be useful if you need an URL to embed in an <img> HTML tag.
- */
-
 Care2TrackDonation(
-    '1234',
-    'test-1@gmail.com',
-    '3.12',
-    'USD',
-    false,
-    false
+    '1234', // Client ID
+    'test-1@gmail.com', // E-mail address
+    '3.12', // Donation value
+    'USD',  // Donation currency
+    false   // Repeating
 );
 
-function Care2TrackDonation($clientId, $email, $value, $currency, $repeating, $returnTrackingUrl = false)
+function Care2TrackDonation($clientId, $email, $value, $currency, $repeating)
 {
     $salt = 'JnXfotSYCdjoYQNtLMp';
 
@@ -78,15 +94,13 @@ function Care2TrackDonation($clientId, $email, $value, $currency, $repeating, $r
         'emailhash' => $emailHash,
         'value'     => $value,
         'currency'  => $currency,
-        'repeating' => ($repeating === true ? 1 : 0)
+        'repeating' => $repeating === true ? 1 : 0
     ];
 
     $trackingUrl = 'https://www.care2.com/donation-pixel?' . http_build_query($queryParams);
 
-    if ($returnTrackingUrl) {
-        return $trackingUrl;
-    } else {
-        file_get_contents($trackingUrl);
-    }
+    file_get_contents($trackingUrl);
 }
 ```
+</p>
+</details>
