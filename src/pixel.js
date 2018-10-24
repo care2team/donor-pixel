@@ -1,5 +1,5 @@
 /**
- * DONOR PIXEL
+ * TARGETING PIXEL
  *
  * @author Martin Boynton
  *
@@ -13,8 +13,8 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
 
 (function () {
 
-    const c2td = care2TrackDonation;
-    let queue = care2TrackDonation.queue || [];
+    const c2td = care2Targeting || care2TrackDonation;
+    let queue = c2td.queue || [];
 
     const callMethod = c2td.callMethod = function (args) {
 
@@ -24,7 +24,7 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
 
         let emailhash = email.match(/^[A-Fa-f0-9]{64}$/) ? email : sha256(salt + email.toLowerCase());
 
-        let url = 'https://www.care2.com/donation-pixel'
+        let url = 'https://www.care2.com/targeting-pixel'
             + '?clientid=' + clientid
             + '&emailhash=' + emailhash
             + '&value=' + value;
@@ -79,7 +79,7 @@ function checkForErrors(clientid, email, value) {
 
 
     // a prefix for the errors to find them easily
-    let prefix = 'Care2 Donation Tracker -- ERROR: ';
+    let prefix = 'Care2 Targeting Pixel -- ERROR: ';
 
 
     // make sure the cliendid is a valid integer

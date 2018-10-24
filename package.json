@@ -1,7 +1,7 @@
 {
-  "name": "donor-pixel",
+  "name": "targeting-pixel",
   "version": "1.0.0",
-  "description": "Donor Pixel Javascript Code",
+  "description": "Targeting Pixel Javascript Code",
   "scripts": {
     "compile": "webpack --config webpack.dev.config.js",
     "build": "webpack --config webpack.prod.config.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/care2team/donor-pixel.git"
+    "url": "git+https://github.com/care2team/targeting-pixel.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/care2team/donor-pixel/issues"
+    "url": "https://github.com/care2team/targeting-pixel/issues"
   },
-  "homepage": "https://github.com/care2team/donor-pixel#readme",
+  "homepage": "https://github.com/care2team/targeting-pixel#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
