@@ -1,12 +1,12 @@
-# tracking-pixel
-Tracking Pixel Repo
+# targeting-pixel
+Targeting Pixel Repo
 
 ##### JAVASCRIPT IMPLEMENTATION EXAMPLE:
 
 ```html
 <script>!function (w, d, e, u, m, t, s) {
-        if (w.care2Tracking) return;
-        m = w.care2Tracking = function (params) {
+        if (w.care2Targeting) return;
+        m = w.care2Targeting = function (params) {
             m.callMethod ? m.callMethod.apply(m, [params]) : m.queue.push(params)
         };
         m.push = m;
@@ -17,10 +17,10 @@ Tracking Pixel Repo
         t.src = u;
         s = d.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t, s);
-    }(window, document, 'script', '//dingo.care2.com/tracking/pixel.js');
+    }(window, document, 'script', '//dingo.care2.com/targeting/pixel.js');
 
 
-    care2Tracking({
+    care2Targeting({
         clientid: 'CLIENT_ID',
         email: 'test@care2team.com',
         value: '3.00',
@@ -33,7 +33,7 @@ Tracking Pixel Repo
 <details><summary>HTML IMPLEMENTATION EXAMPLE</summary>
 <p>
 
-Query parameters passed to the Tracking pixel:
+Query parameters passed to the Targeting pixel:
 
 | Parameter | Description | Example |
 | :--- | :--- | :--- |
@@ -44,7 +44,7 @@ Query parameters passed to the Tracking pixel:
 | repeating | This value should 1 for true, 0 for false | 1 |
 
 ```html
-<img height="1" width="1" alt="" style="display:none" src="https://www.care2.com/tracking-pixel?clientid=1234&emailhash=ca32ff688495d108c175948a8b641b62ddf166bbfd4fb404299758a3e94f59dd&value=3&currency=USD&repeating=0">
+<img height="1" width="1" alt="" style="display:none" src="https://www.care2.com/targeting-pixel?clientid=1234&emailhash=ca32ff688495d108c175948a8b641b62ddf166bbfd4fb404299758a3e94f59dd&value=3&currency=USD&repeating=0">
 ```
 
 </p>
@@ -56,15 +56,15 @@ Query parameters passed to the Tracking pixel:
 ```php
 <?php
 
-care2Tracking(
+care2Targeting(
     '1234', // Client ID
     'test-1@gmail.com', // E-mail address
-    '3.12', // Tracking value
-    'USD',  // Tracking currency
+    '3.12', // Targeting value
+    'USD',  // Targeting currency
     false   // Repeating
 );
 
-function care2Tracking($clientId, $email, $value, $currency, $repeating)
+function care2Targeting($clientId, $email, $value, $currency, $repeating)
 {
     $salt = 'JnXfotSYCdjoYQNtLMp';
 
@@ -81,7 +81,7 @@ function care2Tracking($clientId, $email, $value, $currency, $repeating)
         throw new Exception("Client ID must be an valid integer.");
     }
 
-    // Validate tracking value
+    // Validate targeting value
     $value = (float) $value;
     if ($value <= 0) {
         throw new Exception("Value must be an valid float.");
@@ -95,9 +95,9 @@ function care2Tracking($clientId, $email, $value, $currency, $repeating)
         'repeating' => $repeating === true ? 1 : 0
     ];
 
-    $trackingUrl = 'https://www.care2.com/tracking-pixel?' . http_build_query($queryParams);
+    $targetingUrl = 'https://www.care2.com/targeting-pixel?' . http_build_query($queryParams);
 
-    file_get_contents($trackingUrl);
+    file_get_contents($targetingUrl);
 }
 ```
 </p>

@@ -1,5 +1,5 @@
 /**
- * TRACKING PIXEL
+ * TARGETING PIXEL
  *
  * @author Martin Boynton
  *
@@ -13,7 +13,7 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
 
 (function () {
 
-    const c2td = care2Tracking || care2TrackDonation;
+    const c2td = care2Targeting || care2TrackDonation;
     let queue = c2td.queue || [];
 
     const callMethod = c2td.callMethod = function (args) {
@@ -24,7 +24,7 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
 
         let emailhash = email.match(/^[A-Fa-f0-9]{64}$/) ? email : sha256(salt + email.toLowerCase());
 
-        let url = 'https://www.care2.com/tracking-pixel'
+        let url = 'https://www.care2.com/targeting-pixel'
             + '?clientid=' + clientid
             + '&emailhash=' + emailhash
             + '&value=' + value;
