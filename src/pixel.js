@@ -79,7 +79,7 @@ function checkForErrors(clientid, email, value) {
 
 
     // a prefix for the errors to find them easily
-    let prefix = 'Care2 Pixel Tracker -- ERROR: ';
+    let prefix = 'Care2 Targeting Pixel -- ERROR: ';
 
 
     // make sure the cliendid is a valid integer
