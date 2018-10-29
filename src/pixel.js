@@ -13,7 +13,7 @@ const salt = 'JnXfotSYCdjoYQNtLMp';
 
 (function () {
 
-    const c2td = care2Targeting || care2TrackDonation;
+    const c2td = typeof window.care2Targeting === 'function' ? window.care2Targeting : window.care2TrackDonation;
     let queue = c2td.queue || [];
 
     const callMethod = c2td.callMethod = function (args) {
