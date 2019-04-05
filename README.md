@@ -102,7 +102,6 @@ function care2Targeting($clientId, $email, $value, $currency, $repeating)
 ```
 </p>
 
-</p>
 </details>
 <br />
 <details><summary>BULK LIST FOR IMPORT</summary>
@@ -110,10 +109,12 @@ function care2Targeting($clientId, $email, $value, $currency, $repeating)
 
 When providing a list for bulk import, please provide a tab-separated (.tsv) file with the following columns:
 
-amount - the amount of the donation
-date - the date of the donation in the format YYYY-MM-DD
-email_hash - the sha256 hash of the email
-repeating - whether the donation is repeating or not. 0 = false, 1 = true 
+| Column | Description 
+| :--- | :--- |
+| amount | the amount of the donation |
+| date | the date of the donation in the format YYYY-MM-DD |
+| email_hash | The SHA256 hash of the user's lower-cased email, salted with JnXfotSYCdjoYQNtLMp |
+| repeating | This value should 1 for true, 0 for false |
 
 </p>
 </details>
