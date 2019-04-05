@@ -111,7 +111,7 @@ When providing a list for bulk import, please provide a tab-separated (.tsv) fil
 
 | Column | Description 
 | :--- | :--- |
-| amount | The amount |
+| amount | The amount in USD |
 | date | the date of the donation in the format YYYY-MM-DD |
 | emailhash | The SHA256 hash of the user's lower-cased email, salted with JnXfotSYCdjoYQNtLMp |
 | repeating | This value should 1 for true, 0 for false |
