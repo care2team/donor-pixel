@@ -104,7 +104,7 @@ function care2Targeting($clientId, $email, $value, $currency, $repeating)
 
 </details>
 <br />
-<details><summary>BULK LIST FOR IMPORT</summary>
+<details><summary>BULK LIST FOR IMPORT INSTRUCTIONS</summary>
 <p>
 
 When providing a list for bulk import, please provide a tab-separated (.tsv) file with the following columns:
